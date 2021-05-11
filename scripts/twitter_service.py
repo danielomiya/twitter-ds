@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """
 Created by Daniel Omiya on 09/05/21.
 """
@@ -6,6 +8,7 @@ import argparse
 import csv
 import os
 from enum import Enum
+import sys
 from typing import Union
 
 import requests
@@ -58,7 +61,12 @@ class TwitterService:
         response = self._session.get(
             f"{TWITTER_V1_1_BASE_URL}trends/place.json?id={place}"
         )
-        return response.json()[0]["trends"]
+        try:
+            return response.json()[0]["trends"]
+        except:
+            print("Could not retrieve Twitter trending topics", file=sys.stderr)
+            print(response.text, file=sys.stderr)
+            exit(500)
 
 
 def get_args():
@@ -91,7 +99,8 @@ if __name__ == "__main__":
             f, field_names, delimiter=";", quoting=csv.QUOTE_MINIMAL
         )
 
-        if mode == "w":
+        if mode == "w" or os.stat(args.output).st_size == 0:
+            # if file is empty, add headers to it
             writer.writeheader()
 
         for trend in trends:
