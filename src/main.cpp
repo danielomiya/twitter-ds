@@ -10,9 +10,7 @@
 #include "trendvolume.hpp"
 #include "writer.hpp"
 #include <chrono>
-#include <iostream>
 #include <ostream>
-#include <sstream>
 
 template <typename T, typename = std::enable_if<std::is_base_of<Trend, T>::value>>
 inline void insertData(BinaryTree<T> *tree, const std::vector<T> &trends,
@@ -110,11 +108,11 @@ int main(int argc, char *argv[]) {
 
   /* run benchmark for AVL tree */
   report(nameAVL, volumeAVL, "ARVORE AVL", trends, avlOutput);
-  write("data/avl-report.txt", avlOutput.str());
+  write("reports/avl-report.txt", avlOutput.str());
 
   /* run benchmark for BST tree */
   report(nameBST, volumeBST, "ARVORE BINARIA DE BUSCA", trends, bstOutput);
-  write("data/bst-report.txt", bstOutput.str());
+  write("reports/bst-report.txt", bstOutput.str());
 
   return 0;
 }
