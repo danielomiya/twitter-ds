@@ -85,6 +85,9 @@ inline void report(BinaryTree<TrendName> *nameTree, BinaryTree<TrendVolume> *vol
   out << "TRENDING TOPICS:" << std::endl;
   inDisorder(volumeTree->getRoot(), out);
 
+  write("reports/" + type + "_by-name.dot", nameTree->toString());
+  write("reports/" + type + "_by-volume.dot", volumeTree->toString());
+
   TrendName::resetComparisonCounter();
   TrendVolume::resetComparisonCounter();
 }
@@ -96,22 +99,22 @@ int main(int argc, char *argv[]) {
   const auto trends = getTrends(path);
 
   /* AVL trees */
-  auto nameAVL = new AVLTree<TrendName>();
-  auto volumeAVL = new AVLTree<TrendVolume>();
+  AVLTree<TrendName> nameAVL;
+  AVLTree<TrendVolume> volumeAVL;
 
   /* binary search trees */
-  auto nameBST = new BinarySearchTree<TrendName>();
-  auto volumeBST = new BinarySearchTree<TrendVolume>();
+  BinarySearchTree<TrendName> nameBST;
+  BinarySearchTree<TrendVolume> volumeBST;
 
   /* string output */
   std::stringstream avlOutput, bstOutput;
 
   /* run benchmark for AVL tree */
-  report(nameAVL, volumeAVL, "ARVORE AVL", trends, avlOutput);
+  report(&nameAVL, &volumeAVL, "ARVORE AVL", trends, avlOutput);
   write("reports/avl-report.txt", avlOutput.str());
 
   /* run benchmark for BST tree */
-  report(nameBST, volumeBST, "ARVORE BINARIA DE BUSCA", trends, bstOutput);
+  report(&nameBST, &volumeBST, "ARVORE BINARIA DE BUSCA", trends, bstOutput);
   write("reports/bst-report.txt", bstOutput.str());
 
   return 0;
