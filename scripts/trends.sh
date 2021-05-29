@@ -31,8 +31,9 @@ get_trends () {
 
 # remove file if it already exists
 if [ -f "$OUTPUT_FILE" ]; then
-  echo "Deleting current $OUTPUT_FILE"
-  rm "$OUTPUT_FILE"
+  # echo "Deleting current $OUTPUT_FILE"
+  # rm "$OUTPUT_FILE"
+  echo "File $OUTPUT_FILE already exists"
 fi
 
 for place in ${PLACES[*]}; do
