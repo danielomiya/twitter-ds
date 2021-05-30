@@ -5,6 +5,7 @@
 #ifndef TREND_HPP
 #define TREND_HPP
 
+#include "utils.hpp"
 #include <string>
 
 struct Trend {
@@ -12,7 +13,8 @@ struct Trend {
   int tweetVolume;
 
   friend std::ostream &operator<<(std::ostream &stream, const Trend &trend) {
-    stream << trend.name;
+    auto label = replaceSubstring(trend.name, "\"", "\\\"");
+    stream << label;
     return stream;
   }
 };
