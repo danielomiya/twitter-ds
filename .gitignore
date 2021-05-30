@@ -1,0 +1,7 @@
+venv/
+build/
+data/
+reports/
+.idea/
+.vscode/
+.env
