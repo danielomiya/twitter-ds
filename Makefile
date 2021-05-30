@@ -47,7 +47,7 @@ MODE ?= append
 OUTPUT_FILE ?= data/out.csv
 trends:
 	@$(MKDIR_P) data
-	$(PY) scripts/twitter_service.py -o $(OUTPUT_FILE) --place $(PLACE) --mode $(MODE)
+	scripts/trends.sh
 
 graph:
-	dot -Tpng $(IN) -o $(subst .dot,.png,$(IN))
+	dot -Tpng '$(IN)' -o '$(subst .dot,.png,$(IN))'
